@@ -81,6 +81,13 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@solana/spl-token-registry@^0.2.231":
+  version "0.2.231"
+  resolved "https://registry.yarnpkg.com/@solana/spl-token-registry/-/spl-token-registry-0.2.231.tgz#dd527328211699d403585b28fa7d09c07d466dd0"
+  integrity sha512-Ow6oCn21mLfrXIFkC71JZ9P6Tfo1RKiaFhngEfvcOjzwXKaqN+uQrt0u06zZZys8Ref3wp6CLXUoQ2xXtKQ+6Q==
+  dependencies:
+    cross-fetch "3.0.6"
+
 "@sveltejs/kit@next":
   version "1.0.0-next.163"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.163.tgz#2c5de0837c2f79867fcf5d9f52cd290d3cff476e"
@@ -378,6 +385,13 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
+
+cross-fetch@3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
+  integrity sha512-KBPUbqgFjzWlVcURG+Svp9TlhA5uliYtiNx/0r8nv0pdypeQCRJ9IaSIc3q/x3q8t3F75cHuwxVql1HFGHCNJQ==
+  dependencies:
+    node-fetch "2.6.1"
 
 cross-spawn@^7.0.2:
   version "7.0.3"
@@ -930,6 +944,11 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+
+node-fetch@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
