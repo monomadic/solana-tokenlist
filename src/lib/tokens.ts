@@ -62,7 +62,7 @@ export async function getTokenAccountsForWallet(pubKey: string): Promise<Array<T
     });
 
     return resp.map((_account, _index) => {
-        const accountInfo: AccountInfo = AccountLayout.decode(_account.account.data);
+        const accountInfo = AccountLayout.decode(_account.account.data);
         accountInfo.mint = new PublicKey(accountInfo.mint);
         accountInfo.owner = new PublicKey(accountInfo.owner);
         accountInfo.amount = u64.fromBuffer(accountInfo.amount);

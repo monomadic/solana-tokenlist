@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry';
 	import type { TokenAccount } from '$lib/tokens';
-	import { formatPrice } from '$lib/number';
+	import { formatPrice, fromLamports } from '$lib/number';
 
 	export let account: TokenAccount;
 
@@ -27,5 +27,5 @@
 	<img src={tokenInfo.logoURI} alt="" height="50px" />
 	<strong>{tokenInfo.symbol}</strong>
 	{tokenInfo.name}
-	{formatPrice(account.amount, tokenInfo.decimals)}
+	{formatPrice(fromLamports(account.amount, tokenInfo.decimals))}
 {/if}
