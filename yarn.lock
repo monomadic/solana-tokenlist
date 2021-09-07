@@ -141,6 +141,11 @@
     superstruct "^0.14.2"
     tweetnacl "^1.0.0"
 
+"@sveltejs/adapter-vercel@^1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-vercel/-/adapter-vercel-1.0.0-next.0.tgz#5a82c4eab9df72e851b23161ace0f64beaa8cabf"
+  integrity sha512-dQf40/2vrgRfuQ++tIAlvEgjdGUkXJTSjO5syqJd5oH2HDbP3Shi+2AxWpKAqRFGyRbXDe9ej0MK1G2soZP4fQ==
+
 "@sveltejs/kit@next":
   version "1.0.0-next.163"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.163.tgz#2c5de0837c2f79867fcf5d9f52cd290d3cff476e"
