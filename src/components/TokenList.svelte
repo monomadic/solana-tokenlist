@@ -1,9 +1,21 @@
 <script lang="ts">
 	import TokenItem from './TokenItem.svelte';
-	// import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry';
+	import { pubKey } from '../stores/signer';
+	import { getTokenAccountsForWallet } from '../lib/tokens';
 
-	// let tokenMap: Map<string, TokenInfo> = new Map();
+	$: accounts = $pubKey && getTokenAccountsForWallet($pubKey);
 </script>
 
-<TokenItem tokenMint="6GTJrcnN5xQrrNz92rZwLniCJJPq5akUoqjwezpPNmS3" />
-<TokenItem tokenMint="FYfQ9uaRaYvRiaEGUmct45F9WKam3BYXArTrotnTNFXF" />
+{#await accounts}
+	<p>Loading tokens...</p>
+{:then _accounts}
+	<ul>
+		{#each _accounts as account}
+			<li>
+				<TokenItem {account} />
+			</li>
+		{/each}
+	</ul>
+{:catch err}
+	{err.message}
+{/await}

@@ -4,9 +4,7 @@
 </script>
 
 <main>
-	<h1>Solana, Bro.</h1>
 	{#if $pubKey}
-		<p>PubKey: {$pubKey}</p>
 		<button on:click={disconnect}>Disconnect</button>
 	{:else}
 		<button on:click={connect}>Connect</button>
