@@ -5,8 +5,8 @@
 
 <main>
 	{#if $pubKey}
-		<button on:click={disconnect}>Disconnect</button>
+		<div class="btn" on:click={disconnect}>Disconnect</div>
 	{:else}
-		<button on:click={connect}>Connect</button>
+		<div class="btn" on:click={connect}>Connect</div>
 	{/if}
 </main>
