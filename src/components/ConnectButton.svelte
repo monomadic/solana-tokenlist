@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pubKey } from '$stores/signer';
+	import { pubKey } from '../stores/signer';
 	import { connect, disconnect } from '$lib/wallet';
 
 	$: shortAddress = $pubKey

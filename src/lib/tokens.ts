@@ -8,25 +8,53 @@ import {
     Transaction,
     TransactionInstruction,
 } from '@solana/web3.js';
+import { TokenListProvider } from '@solana/spl-token-registry';
 
 const network = clusterApiUrl("mainnet-beta");
 const connection = new Connection(network);
 
-export async function sayHello(programId: PublicKey, targetPubKey: PublicKey, connection: Connection, payer: Keypair): Promise<void> {
-    console.log('Saying hello to', targetPubKey.toBase58());
+// export async function sayHello(programId: PublicKey, targetPubKey: PublicKey, connection: Connection, payer: Keypair): Promise<void> {
+//     console.log('Saying hello to', targetPubKey.toBase58());
 
-    const instruction = new TransactionInstruction({
-        keys: [{ pubkey: targetPubKey, isSigner: false, isWritable: true }],
-        programId,
-        data: Buffer.alloc(0), // All instructions are hellos
-    });
+//     const instruction = new TransactionInstruction({
+//         keys: [{ pubkey: targetPubKey, isSigner: false, isWritable: true }],
+//         programId,
+//         data: Buffer.alloc(0), // All instructions are hellos
+//     });
 
-    await sendAndConfirmTransaction(
-        connection,
-        new Transaction().add(instruction),
-        [payer],
-    );
+//     await sendAndConfirmTransaction(
+//         connection,
+//         new Transaction().add(instruction),
+//         [payer],
+//     );
+// }
+
+export type TokenMap = Map<any, any>;
+
+export async function getTokenMap(): Promise<TokenMap> {
+    const tokenListProvider = await new TokenListProvider().resolve();
+
+    return tokenListProvider
+        .filterByClusterSlug('mainnet-beta')
+        .getList()
+        .reduce((map, item) => {
+            map.set(item.address, item);
+            return map;
+        }, new Map());
 }
+
+// export async function getTokensWithMetadataForWallet(pubKey: string, mint: string): Promise<Array<?>> {
+//     new TokenListProvider().resolve().then((tokens) => {
+//         const tokenList = tokens.filterByClusterSlug('mainnet-beta').getList();
+
+//         let sortedTokens = tokenList.reduce((map, item) => {
+//             map.set(item.address, item);
+//             return map;
+//         }, new Map());
+
+//         return sortedTokens.get(mint);
+//     });
+// }
 
 export type TokenAccount = {
     address: PublicKey,

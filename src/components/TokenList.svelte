@@ -1,9 +1,10 @@
 <script lang="ts">
 	import TokenItem from './TokenItem.svelte';
 
-	import { pubKey } from '$stores/signer';
-	import { getTokenAccountsForWallet } from '$lib/tokens';
+	import { pubKey } from '../stores/signer';
+	import { getTokenAccountsForWallet, getTokenMap } from '$lib/tokens';
 
+	$: tokenMap = getTokenMap();
 	$: accounts = $pubKey && getTokenAccountsForWallet($pubKey);
 </script>
 
@@ -17,7 +18,7 @@
 			<ul>
 				{#each _accounts as account}
 					<li class="my-4">
-						<TokenItem {account} />
+						<TokenItem {account} bind:tokenMap />
 					</li>
 				{/each}
 			</ul>
