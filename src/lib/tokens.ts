@@ -1,18 +1,13 @@
+import { AccountLayout, TOKEN_PROGRAM_ID, u64 } from '@solana/spl-token';
 import {
-    Keypair,
-    Connection,
-    PublicKey,
-    TransactionInstruction,
-    Transaction,
-    sendAndConfirmTransaction,
     clusterApiUrl,
+    Connection,
+    Keypair,
+    PublicKey,
+    sendAndConfirmTransaction,
+    Transaction,
+    TransactionInstruction,
 } from '@solana/web3.js';
-
-import {
-    AccountLayout,
-    TOKEN_PROGRAM_ID,
-    u64,
-} from "@solana/spl-token";
 
 import type { AccountInfo } from "@solana/spl-token";
 
@@ -59,13 +54,16 @@ export async function getTokenAccountsForWallet(pubKey: string): Promise<Array<T
     });
 
     return resp.map((_account, _index) => {
-        const accountInfo: AccountInfo = AccountLayout.decode(_account.account.data);
+        const accountInfo = AccountLayout.decode(_account.account.data);
+        accountInfo.mint = new PublicKey(accountInfo.mint);
+        accountInfo.owner = new PublicKey(accountInfo.owner);
+        accountInfo.amount = u64.fromBuffer(accountInfo.amount);
 
         return {
             address: _account.pubkey,
-            mint: new PublicKey(accountInfo.mint),
-            owner: new PublicKey(accountInfo.owner),
-            amount: u64.fromBuffer(accountInfo.amount) // u64
+            mint: accountInfo.mint,
+            owner: accountInfo.owner,
+            amount: accountInfo.amount
         };
     });
 }

@@ -12,12 +12,24 @@
 </svelte:head>
 
 <main>
-	<h1>Solana, Bro.</h1>
-	<ConnectButton />
+	<div class="flex justify-center">
+		<div class="flex justify-center my-4" style="min-width: 440px;">
+			<ConnectButton />
+		</div>
+	</div>
 
 	{#if $pubKey}
-		<p>PubKey: {$pubKey}</p>
-		<SolBalance />
-		<TokenList />
+		<div class="flex justify-center">
+			<div style="min-width: 440px;">
+				<SolBalance />
+				<TokenList />
+			</div>
+		</div>
 	{/if}
 </main>
+
+<style type="text/css">
+	:root {
+		background-color: rgb(22, 0, 41);
+	}
+</style>

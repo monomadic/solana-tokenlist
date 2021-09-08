@@ -1,12 +1,16 @@
 <script lang="ts">
-	import { pubKey } from '../stores/signer';
+	import { pubKey, pubKey } from '../stores/signer';
 	import { connect, disconnect } from '../lib/wallet';
+
+	$: shortAddress = $pubKey
+		? `${$pubKey.substring(0, 5)}...${$pubKey.substring($pubKey.length - 4)}`
+		: null;
 </script>
 
 <main>
 	{#if $pubKey}
-		<button on:click={disconnect}>Disconnect</button>
+		<div class="btn btn-primary" on:click={disconnect}>{shortAddress}</div>
 	{:else}
-		<button on:click={connect}>Connect</button>
+		<div class="btn btn-primary" on:click={connect}>Connect</div>
 	{/if}
 </main>
