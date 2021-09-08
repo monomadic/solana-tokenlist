@@ -16,11 +16,8 @@ import {
 
 import type { AccountInfo } from "@solana/spl-token";
 
-import { compute_rest_props } from 'svelte/internal';
-
 const network = clusterApiUrl("mainnet-beta");
 const connection = new Connection(network);
-const providerUrl = 'https://www.sollet.io';
 
 export async function sayHello(programId: PublicKey, targetPubKey: PublicKey, connection: Connection, payer: Keypair): Promise<void> {
     console.log('Saying hello to', targetPubKey.toBase58());
@@ -37,13 +34,6 @@ export async function sayHello(programId: PublicKey, targetPubKey: PublicKey, co
         [payer],
     );
 }
-
-// export async function getSPLBalance(programId: PublicKey, connection: Connection) {
-//     let resp = await connection.getProgramAccounts(programId, {
-//         commitment: connection.commitment,
-//         filters,
-//     });
-// }
 
 export type TokenAccount = {
     address: PublicKey,
@@ -71,12 +61,11 @@ export async function getTokenAccountsForWallet(pubKey: string): Promise<Array<T
     return resp.map((_account, _index) => {
         const accountInfo: AccountInfo = AccountLayout.decode(_account.account.data);
 
-        console.log(accountInfo);
         return {
             address: _account.pubkey,
             mint: new PublicKey(accountInfo.mint),
             owner: new PublicKey(accountInfo.owner),
-            amount: new u64(accountInfo.amount) // u64
+            amount: u64.fromBuffer(accountInfo.amount) // u64
         };
     });
 }
