@@ -9,8 +9,6 @@ import {
     TransactionInstruction,
 } from '@solana/web3.js';
 
-import type { AccountInfo } from "@solana/spl-token";
-
 const network = clusterApiUrl("mainnet-beta");
 const connection = new Connection(network);
 

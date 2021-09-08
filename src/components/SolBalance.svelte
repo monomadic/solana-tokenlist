@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { pubKey } from '../stores/signer';
-	import { getBalance } from '../lib/provider';
+	import { pubKey } from '$stores/signer';
+	import { getBalance } from '$lib/provider';
 
 	$: balance = $pubKey && getBalance($pubKey);
 </script>
