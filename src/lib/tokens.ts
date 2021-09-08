@@ -2,11 +2,7 @@ import { AccountLayout, TOKEN_PROGRAM_ID, u64 } from '@solana/spl-token';
 import {
     clusterApiUrl,
     Connection,
-    Keypair,
     PublicKey,
-    sendAndConfirmTransaction,
-    Transaction,
-    TransactionInstruction,
 } from '@solana/web3.js';
 import { TokenListProvider } from '@solana/spl-token-registry';
 
@@ -42,19 +38,6 @@ export async function getTokenMap(): Promise<TokenMap> {
             return map;
         }, new Map());
 }
-
-// export async function getTokensWithMetadataForWallet(pubKey: string, mint: string): Promise<Array<?>> {
-//     new TokenListProvider().resolve().then((tokens) => {
-//         const tokenList = tokens.filterByClusterSlug('mainnet-beta').getList();
-
-//         let sortedTokens = tokenList.reduce((map, item) => {
-//             map.set(item.address, item);
-//             return map;
-//         }, new Map());
-
-//         return sortedTokens.get(mint);
-//     });
-// }
 
 export type TokenAccount = {
     address: PublicKey,

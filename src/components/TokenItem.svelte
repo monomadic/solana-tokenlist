@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	// import { TokenListProvider } from '@solana/spl-token-registry';
-	import type { TokenAccount, TokenMap } from '$lib/tokens';
 	import { formatPrice, fromLamports } from '$lib/number';
+	import type { TokenAccount, TokenMap } from '$lib/tokens';
 
 	export let account: TokenAccount;
 	export let tokenMap: Promise<TokenMap>;
