@@ -6,8 +6,9 @@ import {
 } from '@solana/web3.js';
 import { TokenListProvider } from '@solana/spl-token-registry';
 
-const network = clusterApiUrl("mainnet-beta");
+const network = clusterApiUrl("devnet");
 const connection = new Connection(network);
+
 
 // export async function sayHello(programId: PublicKey, targetPubKey: PublicKey, connection: Connection, payer: Keypair): Promise<void> {
 //     console.log('Saying hello to', targetPubKey.toBase58());
@@ -62,11 +63,15 @@ export async function getTokenAccountsForWallet(pubKey: string): Promise<Array<T
         ]
     });
 
+    // console.log("rest", resp[0].account.data);
+
     return resp.map((_account, _index) => {
         const accountInfo = AccountLayout.decode(_account.account.data);
         accountInfo.mint = new PublicKey(accountInfo.mint);
         accountInfo.owner = new PublicKey(accountInfo.owner);
         accountInfo.amount = u64.fromBuffer(accountInfo.amount);
+
+        console.log("accountInfo", accountInfo);
 
         return {
             address: _account.pubkey,

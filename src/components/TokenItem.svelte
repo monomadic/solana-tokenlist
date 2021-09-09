@@ -9,6 +9,7 @@
 	$: tokenInfo = undefined;
 
 	onMount(() => {
+		console.log(account);
 		tokenMap.then((tokens) => {
 			tokenInfo = tokens.get(account.mint.toBase58());
 		});
@@ -33,4 +34,6 @@
 			</div>
 		</div>
 	</div>
+{:else}
+	Unknown Token: {account.mint.toBase58()}
 {/if}
