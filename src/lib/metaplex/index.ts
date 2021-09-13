@@ -54,7 +54,6 @@ export const MAX_METADATA_LEN =
     198;
 
 export async function getNFTsForAccount(pubKey: string) {
-    console.log("ffff");
 
     await connection.getProgramAccounts(new PublicKey(METADATA_PROGRAM_ID), {
         // commitment: connection.commitment,
@@ -66,18 +65,18 @@ export async function getNFTsForAccount(pubKey: string) {
         //         }
         //     },
         // ]
-        // filters: [
-        //     {
-        //         memcmp: {
-        //             offset: 64,
-        //             bytes: "6eNvdpQdJkZa1At6Upco94gHBCcPRKPhz1yNzJdLLiku",
-        //         },
-        //     },
-        // ]
+        filters: [
+            {
+                memcmp: {
+                    offset: 32, // mint
+                    bytes: METADATA_PROGRAM_ID,
+                },
+            },
+        ]
     }).then(
         accounts => {
             console.log(accounts);
-            console.log("accounts", accounts[0]);
+            console.log("accounts", accounts[0].pubkey.toBase58());
             // accounts.forEach(({ account, pubkey }) => {
             //     if (!isMetaplexAccount(account)) return;
 
