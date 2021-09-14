@@ -4,6 +4,6 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		getNFTsForAccount($pubKey);
+		// getNFTsForAccount($pubKey);
 	});
 </script>

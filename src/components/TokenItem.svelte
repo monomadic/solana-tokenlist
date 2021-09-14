@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { formatPrice, fromLamports } from '$lib/number';
 	import type { TokenAccount, TokenMap } from '$lib/tokens';
+	import { getNFTMetadata } from '$lib/metaplex';
 
 	export let account: TokenAccount;
 	export let tokenMap: Promise<TokenMap>;
@@ -9,11 +10,17 @@
 	$: tokenInfo = undefined;
 
 	onMount(() => {
+		getNFTMetadata(account.mint);
 		console.log(account);
 		tokenMap.then((tokens) => {
 			tokenInfo = tokens.get(account.mint.toBase58());
 		});
 	});
+
+	// function getNFTsForAccount(account: TokenAccount) {
+	// 	// throw new Error('Function not implemented.');
+
+	// }
 </script>
 
 {#if tokenInfo}
