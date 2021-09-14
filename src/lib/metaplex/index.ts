@@ -54,17 +54,7 @@ export const MAX_METADATA_LEN =
     1 +
     198;
 
-export async function getMetadata(data: Buffer) {
-
-}
-
 export async function getNFTMetadata(mintPubKey: PublicKey) {
-    // const pubKey = new PublicKey(walletPubKey);
-
-    console.log("getting data for", mintPubKey.toBase58());
-
-
-
     const mintAddress = "6eNvdpQdJkZa1At6Upco94gHBCcPRKPhz1yNzJdLLiku";
     const metadataProgram = new PublicKey(METADATA_PROGRAM_ID);
 
