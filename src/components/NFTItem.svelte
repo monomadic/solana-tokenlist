@@ -6,42 +6,27 @@
 	import { fetchNFT, fetchNFTMetadata } from '$lib/nft';
 
 	export let account: TokenAccount;
-	export let tokenMap: Promise<TokenMap>;
 
-	$: tokenInfo = undefined;
-
-	onMount(async () => {
-		console.log(await fetchNFTMetadata(account.mint));
-
-		// tokenMap.then((tokens) => {
-		// 	tokenInfo = tokens.get(account.mint.toBase58());
-		// });
-	});
-
-	// function getNFTsForAccount(account: TokenAccount) {
-	// 	// throw new Error('Function not implemented.');
-
-	// }
+	$: nftInfo = fetchNFTMetadata(account.mint);
 </script>
 
-{#if tokenInfo}
-	<div class="flex p-2 space-x-3 hover:bg-purple-900 rounded cursor-pointer">
-		<div class="">
-			<img class="rounded-full h-12 w-12" src={tokenInfo.logoURI} alt="" height="50px" />
-		</div>
+{#await nftInfo}
+	<!-- nftInfo is pending -->
+{:then info}
+<div class="flex p-2 space-x-3 hover:bg-purple-900 cursor-pointer">
+	<div class="">
+		<img class="rounded h-36 w-36" src={info.image} alt="" height="150px" />
+	</div>
 
-		<div class="flex justify-between w-full">
-			<div>
-				<div class="font-bold">{tokenInfo.symbol}</div>
-				<div class="text-xs text-gray-400">{tokenInfo.name}</div>
-			</div>
-
-			<div class="text-gray-400">
-				{formatPrice(fromLamports(account.amount, tokenInfo.decimals))}
-				{tokenInfo.symbol}
-			</div>
+	<div class="flex justify-between w-full">
+		<div>
+			<div class="text-xl font-bold">{info.name || "Untitled"}</div>
+			<div class="text-sm text-gray-400">{info.description}</div>
 		</div>
 	</div>
-{:else}
-	Unknown Token: {account.mint.toBase58()}
-{/if}
+</div>
+{:catch error}
+	<!-- nftInfo was rejected -->
+{/await}
+
+
