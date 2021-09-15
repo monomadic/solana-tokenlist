@@ -1,21 +1,30 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { formatPrice, fromLamports } from '$lib/number';
-	import type { TokenAccount, TokenMap } from '$lib/tokens';
-	import { getNFTMetadata } from '$lib/metaplex';
-	import { fetchNFT, fetchNFTMetadata } from '$lib/nft';
+	import type { TokenAccount } from '$lib/tokens';
+	import { fetchNFTMetadata } from '$lib/nft';
+
+	// import * as PicoPlayer from "../vendor/picoplayer.js";
 
 	export let account: TokenAccount;
 
 	$: nftInfo = fetchNFTMetadata(account.mint);
+
+	function loadCart(url: string) {
+		PicoPlayer('pico-container', url);
+	}
 </script>
 
+<div id="pico-container"></div>
+
 {#await nftInfo}
-	<!-- nftInfo is pending -->
-{:then info}
 <div class="flex p-2 space-x-3 hover:bg-purple-900 cursor-pointer">
 	<div class="">
-		<img class="rounded h-36 w-36" src={info.image} alt="" height="150px" />
+		<div class="rounded h-36 w-36 bg-black bg-opacity-20" />
+	</div>
+</div>
+{:then info}
+<div on:click={loadCart(info.image)} class="flex p-2 space-x-3 hover:bg-purple-900 cursor-pointer">
+	<div class="">
+		<img class="rounded h-36 w-36 bg-black bg-opacity-20" src={info.image} alt="" height="150px" />
 	</div>
 
 	<div class="flex justify-between w-full">
@@ -30,3 +39,8 @@
 {/await}
 
 
+<style>
+	:global(#pico-container canvas) {
+		width: 100% !important;
+	}
+</style>
