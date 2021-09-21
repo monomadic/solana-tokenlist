@@ -23,7 +23,7 @@
 		<div class="flex justify-center">
 			<div style="min-width: 440px;">
 				<SolBalance />
-				<TokenList />
+				<!-- <TokenList /> -->
 				<NFTList />
 			</div>
 		</div>

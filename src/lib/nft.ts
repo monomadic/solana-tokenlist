@@ -12,10 +12,15 @@ const connection = new Connection(network);
 const METADATA_REPLACE = new RegExp('\u0000', 'g');
 
 export async function fetchNFTMetadata(mintPubKey: PublicKey) {
-	return fetchNFT(mintPubKey).then(async (data) => {
-		const metadataURL = data[0].data.uri; // check this - multiple?
-		const remoteData = await fetch(metadataURL).then((resp) => resp.json());
-		return remoteData;
+	return fetchNFT(mintPubKey).then(async data => {
+		const metadataURL = data[0]?.data.uri;
+		if (metadataURL) {
+			const remoteData = await fetch(metadataURL).then(resp => resp.json());
+			console.log(remoteData);
+			return remoteData;
+		} else {
+			return {};
+		}
 	});
 }
 
