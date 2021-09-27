@@ -11,7 +11,14 @@ const connection = new Connection(network);
 // eslint-disable-next-line no-control-regex
 const METADATA_REPLACE = new RegExp('\u0000', 'g');
 
-export async function fetchNFTMetadata(mintPubKey: PublicKey) {
+// structure of remote metadata json file
+export type MetadataJSON = {
+	name: string,
+	image: string,
+	description: string
+}
+
+export async function fetchNFTMetadata(mintPubKey: PublicKey): Promise<MetadataJSON> {
 	return fetchNFT(mintPubKey).then(async data => {
 		const metadataURL = data[0]?.data.uri;
 		if (metadataURL) {
@@ -19,7 +26,7 @@ export async function fetchNFTMetadata(mintPubKey: PublicKey) {
 			console.log(remoteData);
 			return remoteData;
 		} else {
-			return {};
+			return undefined;
 		}
 	});
 }
