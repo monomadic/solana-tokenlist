@@ -9,8 +9,21 @@
 
 <main>
 	{#if $pubKey}
-		<div class="btn btn-primary" on:click={disconnect}>{shortAddress}</div>
+		<div class="btn btn-primary" on:click={disconnect}>
+			<img src="/i/phantom.svg" alt="phantom" />
+			{shortAddress}
+		</div>
 	{:else}
-		<div class="btn btn-primary" on:click={connect}>Connect</div>
+		<div class="btn btn-primary" on:click={connect}>
+			<img src="/i/phantom.svg" alt="phantom" />
+			Connect
+		</div>
 	{/if}
 </main>
+
+<style>
+	img {
+		height: 32px;
+		margin-right: 4px;
+	}
+</style>

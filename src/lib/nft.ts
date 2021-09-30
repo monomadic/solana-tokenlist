@@ -13,16 +13,16 @@ const METADATA_REPLACE = new RegExp('\u0000', 'g');
 
 // structure of remote metadata json file
 export type MetadataJSON = {
-	name: string,
-	image: string,
-	description: string
-}
+	name: string;
+	image: string;
+	description: string;
+};
 
 export async function fetchNFTMetadata(mintPubKey: PublicKey): Promise<MetadataJSON> {
-	return fetchNFT(mintPubKey).then(async data => {
+	return fetchNFT(mintPubKey).then(async (data) => {
 		const metadataURL = data[0]?.data.uri;
 		if (metadataURL) {
-			const remoteData = await fetch(metadataURL).then(resp => resp.json());
+			const remoteData = await fetch(metadataURL).then((resp) => resp.json());
 			console.log(remoteData);
 			return remoteData;
 		} else {
