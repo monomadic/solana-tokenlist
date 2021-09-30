@@ -1,21 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { formatPrice, fromLamports } from '$lib/number';
-	import type { TokenAccount, TokenMap } from '$lib/tokens';
-	import { getNFTMetadata } from '$lib/metaplex';
-	import { fetchNFT, fetchNFTMetadata } from '$lib/nft';
+	import type { TokenInfo, TokenMap } from '$lib/tokens';
+	import { fetchNFTMetadata } from '$lib/nft';
 
-	export let account: TokenAccount;
+	export let account: TokenInfo;
 	export let tokenMap: Promise<TokenMap>;
 
 	$: tokenInfo = undefined;
 
 	onMount(async () => {
-		console.log(await fetchNFTMetadata(account.mint));
+		// console.log(await fetchNFTMetadata(account.mint));
 
-		// tokenMap.then((tokens) => {
-		// 	tokenInfo = tokens.get(account.mint.toBase58());
-		// });
+		tokenMap.then((tokens) => {
+			tokenInfo = tokens.get(account.mint.toBase58());
+		});
 	});
 
 	// function getNFTsForAccount(account: TokenAccount) {

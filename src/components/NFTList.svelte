@@ -1,9 +1,11 @@
 <script lang="ts">
 	import NFTItem from './NFTItem.svelte';
+	import TokenItem from './TokenItem.svelte';
 
 	import { pubKey } from '../stores/signer';
-	import { getTokenAccountsForWallet } from '$lib/tokens';
+	import { getTokenAccountsForWallet, getTokenMap, SPLTokenType } from '$lib/tokens';
 
+	$: tokenMap = getTokenMap();
 	$: accounts = getTokenAccountsForWallet($pubKey);
 </script>
 
@@ -17,12 +19,16 @@
 			<ul>
 				{#each _accounts as account}
 					<li class="my-4">
-						<NFTItem {account} />
+						{#if account.type == SPLTokenType.NonFungibleToken }
+							<NFTItem {account} />
+						{:else}
+							<TokenItem {account} bind:tokenMap />
+						{/if}
 					</li>
 				{/each}
 			</ul>
 		{:catch err}
-			{err.message}
+			<div class="p-4 bg-error">Error: {err.message}</div>
 		{/await}
 	</div>
 </main>

@@ -1,13 +1,15 @@
 <script lang="ts">
-	import type { TokenAccount } from '$lib/tokens';
+	import type { TokenInfo } from '$lib/tokens';
 	import { fetchNFTMetadata } from '$lib/nft';
 
-	export let account: TokenAccount;
+	import * as picoplayer from '../../static/picoplayer.js';
+
+	export let account: TokenInfo;
 
 	$: nftInfo = fetchNFTMetadata(account.mint);
 
 	function loadCart(url: string) {
-		PicoPlayer('pico-container', url);
+		picoplayer.PicoPlayer('pico-container', url);
 	}
 </script>
 
