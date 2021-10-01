@@ -1,12 +1,12 @@
 <script lang="ts">
-	import TokenItem from './TokenItem.svelte';
 	import NFTItem from './NFTItem.svelte';
+	import TokenItem from './TokenItem.svelte';
 
 	import { pubKey } from '../stores/signer';
-	import { getTokenAccountsForWallet, getTokenMap } from '$lib/tokens';
+	import { getTokenAccountsForWallet, getTokenMap, sortByTokenType } from '$lib/tokens';
 
 	$: tokenMap = getTokenMap();
-	$: accounts = $pubKey && getTokenAccountsForWallet($pubKey);
+	$: accounts = getTokenAccountsForWallet($pubKey).then(sortByTokenType);
 </script>
 
 <main>
@@ -14,17 +14,24 @@
 		class="box-border px-3 py-1 max-w-screen-sm bg-opacity-5 bg-white rounded-box text-base-content"
 	>
 		{#await accounts}
-			<div class="p-4">Loading NFT...</div>
-		{:then _accounts}
+			<div class="p-4">Loading tokens...</div>
+		{:then accounts}
 			<ul>
-				{#each _accounts as account}
+				{#each accounts.nfts as account}
 					<li class="my-4">
-						<NFTItem {account} bind:tokenMap />
+						<NFTItem {account} />
+					</li>
+				{/each}
+			</ul>
+			<ul>
+				{#each accounts.tokens as account}
+					<li class="my-4">
+						<TokenItem {account} bind:tokenMap />
 					</li>
 				{/each}
 			</ul>
 		{:catch err}
-			{err.message}
+			<div class="p-4 bg-error">Error: {err.message}</div>
 		{/await}
 	</div>
 </main>

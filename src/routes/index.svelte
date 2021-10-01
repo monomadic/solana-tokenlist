@@ -1,6 +1,5 @@
 <script lang="ts">
 	import TokenList from '../components/TokenList.svelte';
-	import NFTList from '../components/NFTList.svelte';
 	import ConnectButton from '../components/ConnectButton.svelte';
 	import SolBalance from '../components/SolBalance.svelte';
 	import { pubKey } from '../stores/signer';
@@ -23,8 +22,7 @@
 		<div class="flex justify-center">
 			<div style="min-width: 440px;">
 				<SolBalance />
-				<!-- <TokenList /> -->
-				<NFTList />
+				<TokenList />
 			</div>
 		</div>
 	{/if}

@@ -2,9 +2,7 @@
 	import { pubKey } from '../stores/signer';
 	import { connect, disconnect } from '$lib/wallet';
 
-	$: shortAddress = $pubKey
-		? `${$pubKey.substring(0, 5)}...${$pubKey.substring($pubKey.length - 4)}`
-		: null;
+	$: shortAddress = $pubKey && shortAddress($pubKey);
 </script>
 
 <main>

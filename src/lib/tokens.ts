@@ -105,6 +105,15 @@ export async function getTokenMap(): Promise<TokenMap> {
 		}, new Map());
 }
 
+export function sortByTokenType(
+	alltokens: TokenInfo[]
+): { nfts: TokenInfo[]; tokens: TokenInfo[] } {
+	return {
+		nfts: alltokens.filter((token) => token.type != SPLTokenType.FungibleToken),
+		tokens: alltokens.filter((token) => token.type != SPLTokenType.NonFungibleToken)
+	};
+}
+
 // https://docs.solana.com/developing/clients/jsonrpc-api#getprogramaccounts
 // Returns Token accounts associated with a wallet account.
 export async function getTokenAccountsForWallet(pubKey: string): Promise<TokenInfo[]> {
