@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { pubKey } from '../stores/signer';
 	import { connect, disconnect } from '$lib/wallet';
+	import { shortAddress } from '$lib/formatting';
 
-	$: shortAddress = $pubKey && shortAddress($pubKey);
+	$: address = $pubKey && shortAddress($pubKey);
 </script>
 
 <main>
 	{#if $pubKey}
 		<div class="btn btn-secondary" on:click={disconnect}>
 			<img src="/i/phantom.svg" alt="phantom" />
-			{shortAddress}
+			{address}
 		</div>
 	{:else}
 		<div class="btn btn-secondary" on:click={connect}>
