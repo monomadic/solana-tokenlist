@@ -36,7 +36,7 @@
 	>
 		<div class="">
 			<img
-				class="rounded h-36 w-36 bg-black bg-opacity-20"
+				class="rounded h-36 max-w-36 bg-black bg-opacity-20"
 				src={info.image}
 				alt=""
 				height="150px"

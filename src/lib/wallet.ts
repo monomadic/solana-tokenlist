@@ -5,41 +5,27 @@ import { pubKey } from '../stores/signer';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;
 
-export async function connect(): Promise<void> {
-	const provider = getPhantom();
+export function connect(): void {
+	const provider = window && window.solana;
 
-	window.solana.on('connect', onConnect);
-	window.solana.on('disconnect', onDisconnect);
-
-	provider.connect();
+	// check for phantom
+	if (provider) {
+		provider.on('connect', onConnect);
+		provider.on('disconnect', onDisconnect);
+		provider.connect();
+	}
 }
 
-export async function disconnect(): Promise<void> {
-	const provider = getPhantom();
+export function disconnect(): void {
+	const provider = window && window.solana;
 	provider.disconnect();
 }
 
-// fix typing.
-function getPhantom() {
-	if ('solana' in window) {
-		const provider = window.solana;
-		return provider;
-	}
-	// no provider, handle it
-}
-
 function onConnect() {
-	pubKey.set(window.solana.publicKey.toString());
+	const provider = window && window.solana;
+	pubKey.set(provider.publicKey.toString());
 }
 
 function onDisconnect() {
 	pubKey.set(undefined);
 }
-
-// function isConnected(): boolean {
-// 	return window.solana.isConnected();
-// }
-
-// async function getBalance(pubKey: string) {
-// 	window.solana.getBalance();
-// }
